@@ -11,7 +11,6 @@
 #include <string>
 
 #pragma comment(lib, "ws2_32.lib") // Link against Winsock library
-ABSL_FLAG(int, port, 12500, "UDP port to Unity");
 
 namespace mediapipe {
 

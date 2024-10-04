@@ -800,7 +800,11 @@ cc_library(
     srcs = ["face_blendshapes_printer.cc"],
     deps = [
         "//mediapipe/framework:calculator_framework", 
-        "//mediapipe/framework/formats:classification_cc_proto", 
+        "//mediapipe/framework/formats:classification_cc_proto",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/strings",
     ],
     alwayslink = 1,
 )

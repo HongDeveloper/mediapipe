@@ -40,6 +40,7 @@ constexpr char kInputStream[] = "input_video";
 constexpr char kOutputStream[] = "output_video";
 constexpr char kWindowName[] = "MediaPipe";
 
+// Command Line
 ABSL_FLAG(std::string, calculator_graph_config_file, "holistic_tracking_cpu.pbtxt",
           "Name of file containing text format CalculatorGraphConfig proto.");
 
@@ -48,6 +49,7 @@ ABSL_FLAG(int, width, 640, "Camera resolution width");
 ABSL_FLAG(int, height, 480, "Camera resolution height");
 ABSL_FLAG(int, fps, 30, "Camera fps");
 ABSL_FLAG(int, port, 12500, "UDP port to Unity");
+ABSL_FLAG(std::string, executor, "Invalid", "Name of executor");
 
 void EnumerateVideoCaptureDevices() {
     IMFAttributes* pAttributes = NULL;
@@ -190,6 +192,15 @@ int main(int argc, char** argv) {
   // Initialize logging and parse command line flags.
   google::InitGoogleLogging(argv[0]);
   absl::ParseCommandLine(argc, argv);
+
+  std::string executor_value = absl::GetFlag(FLAGS_executor);
+  if (executor_value != "AvaKit") {
+      std::cout << "The executor value is not 'AvaKit'. It is: " << executor_value << std::endl;
+      return EXIT_FAILURE;
+  }
+
+  PrintCommandLine();
+
 
   // Initialize COM library
   HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);

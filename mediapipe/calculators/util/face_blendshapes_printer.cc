@@ -11,6 +11,7 @@
 #include <string>
 
 #pragma comment(lib, "ws2_32.lib") // Link against Winsock library
+ABSL_FLAG(int, port, 12500, "UDP port to Unity");
 
 namespace mediapipe {
 
@@ -106,7 +107,7 @@ if (!cc->Inputs().Tag("FACE_BLENDSHAPES").IsEmpty()) {
     // Set up the server address
     server_addr.sin_family = AF_INET;
 
-    server_addr.sin_port = htons(12500);
+    server_addr.sin_port = htons(absl::GetFlag(FLAGS_port));
     inet_pton(AF_INET, "127.0.0.1", &server_addr.sin_addr);
 
     // Craft JSON and send it over UDP
